@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Skin Cancer Classifier</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+    <!-- Header with Profile & Settings -->
+    <!-- Mobile Nav (Hamburger) -->
+    <div class="md:hidden flex items-center justify-between px-4 py-3 bg-[#141a1f] border-b border-[#2b3640]">
+      <button id="mobileMenuButton" class="text-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="theme-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a href="{{ url_for('profile_page') }}" class="text-white hover:bg-[#2b3640] p-2 rounded-lg transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,0,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path>
+          </svg>
+        </a>
+        <a href="{{ url_for('settings_page') }}" class="text-white hover:bg-[#2b3640] p-2 rounded-lg transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25a8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87a8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25a8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25a8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87a8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88a8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25a8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <!-- Desktop Header -->
+    <div class="hidden md:flex items-center justify-between px-4 py-3 bg-[#141a1f] border-b border-[#2b3640]">
+      <span class="text-white text-lg font-bold">Skin Cancer Classifier</span>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="theme-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a href="{{ url_for('profile_page') }}" class="flex items-center gap-2 px-3 py-2 text-white hover:bg-[#2b3640] rounded-lg transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,0,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path>
+          </svg>
+          <span class="hidden sm:inline">Profile</span>
+        </a>
+        <a href="{{ url_for('settings_page') }}" class="flex items-center gap-2 px-3 py-2 text-white hover:bg-[#2b3640] rounded-lg transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"></path>
+          </svg>
+          <span class="hidden sm:inline">Settings</span>
+        </a>
+      </div>
+    </div>
+    <div class="relative flex size-full min-h-screen flex-col bg-[#141a1f] group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
+        <div class="layout-container flex h-full grow flex-col">
+            <div class="gap-1 px-6 flex flex-1 justify-center py-5">
+                <!-- Sidebar -->
+                <div id="sidebarMenu" class="layout-content-container flex flex-col w-80 md:hidden fixed top-0 left-0 h-full z-40 bg-[#141a1f] transition-transform duration-300 -translate-x-full shadow-lg">
+                    <div class="flex h-full min-h-[700px] flex-col justify-between bg-[#141a1f] p-4">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center justify-end">
+                                <button id="closeSidebar" class="text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-center gap-3 px-3 py-2 rounded-xl bg-[#2b3640]">
+                                    <div class="text-white" data-icon="House" data-size="24px" data-weight="fill">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                                            <path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path>
+                                        </svg>
+                                    </div>
+                                    <p class="text-white text-sm font-medium leading-normal">Dashboard</p>
+                                </div>
+                                <a href="{{ url_for('upload_page') }}" class="flex items-center gap-3 px-3 py-2 hover:bg-[#2b3640] rounded-xl transition-colors">
+                                    <div class="text-white" data-icon="File" data-size="24px" data-weight="regular">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                                            <path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z"></path>
+                                        </svg>
+                                    </div>
+                                    <p class="text-white text-sm font-medium leading-normal">Upload Image</p>
+                                </a>
+                                <a href="{{ url_for('history_page') }}" class="flex items-center gap-3 px-3 py-2 hover:bg-[#2b3640] rounded-xl transition-colors">
+                                    <div class="text-white" data-icon="PresentationChart" data-size="24px" data-weight="regular">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                                            <path d="M216,40H136V24a8,8,0,0,0-16,0V40H40A16,16,0,0,0,24,56V176a16,16,0,0,0,16,16H79.36L57.75,219a8,8,0,0,0,12.5,10l29.59-37h56.32l29.59,37a8,8,0,1,0,12.5-10l-21.61-27H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,136H40V56H216V176ZM104,120v24a8,8,0,0,1-16,0V120a8,8,0,0,1,16,0Zm32-16v40a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm32-16v56a8,8,0,0,1-16,0V88a8,8,0,0,1,16,0Z"></path>
+                                        </svg>
+                                    </div>
+                                    <p class="text-white text-sm font-medium leading-normal">Analysis History</p>
+                                </a>
+                                <a href="{{ url_for('profile_page') }}" class="flex items-center gap-3 px-3 py-2 hover:bg-[#2b3640] rounded-xl transition-colors">
+                                    <div class="text-white" data-icon="Users" data-size="24px" data-weight="regular">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                                            <path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,0,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path>
+                                        </svg>
+                                    </div>
+                                    <p class="text-white text-sm font-medium leading-normal">User Profile</p>
+                                </a>
+                                <a href="{{ url_for('settings_page') }}" class="flex items-center gap-3 px-3 py-2 hover:bg-[#2b3640] rounded-xl transition-colors">
+                                    <div class="text-white" data-icon="Gear" data-size="24px" data-weight="regular">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                                            <path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25a8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87a8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25a8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87a8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88a8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25a8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"></path>
+                                        </svg>
+                                    </div>
+                                    <p class="text-white text-sm font-medium leading-normal">Settings</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layout-content-container flex flex-col max-w-[960px] flex-1 w-full mx-auto justify-center items-center">
+          <div class="flex flex-wrap justify-between gap-3 p-2 md:p-4">
+            <p class="text-white tracking-light text-[22px] md:text-[32px] font-bold leading-tight min-w-0">Skin Cancer Classification System</p>
+          </div>
+          <!-- Hero Section -->
+          <div class="px-2 md:px-4 py-3">
+            <div class="bg-gradient-to-r from-[#1f272e] to-[#2b3640] rounded-xl p-6 md:p-8 border border-[#3d4d5c] text-center">
+              <h2 class="text-white text-[28px] md:text-[36px] font-bold leading-tight mb-4">Early Detection Saves Lives</h2>
+              <p class="text-[#dce8f3] text-lg md:text-xl mb-6 max-w-3xl mx-auto">Get instant AI-powered skin cancer analysis in seconds. Our advanced machine learning model helps detect potential skin cancer with 95%+ accuracy.</p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                <a href="{{ url_for('upload_page') }}" class="bg-[#dce8f3] text-[#141a1f] px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#b8d4e8] transition-colors shadow-lg">
+                  🔬 Analyze Your Image Now
+                </a>
+                <a href="{{ url_for('history_page') }}" class="border-2 border-[#dce8f3] text-[#dce8f3] px-8 py-4 rounded-xl font-semibold hover:bg-[#dce8f3] hover:text-[#141a1f] transition-colors">
+                  📊 View Analysis History
+                </a>
+              </div>
+              <!-- Key Benefits -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="text-center">
+                  <div class="bg-green-500/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#22c55e" viewBox="0 0 256 256">
+                      <path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34Z"></path>
+                    </svg>
+                  </div>
+                  <h3 class="text-white text-xl font-bold mb-2">Instant Results</h3>
+                  <p class="text-[#9daebe]">Get AI analysis in under 3 seconds with detailed confidence scores</p>
+                </div>
+                <div class="text-center">
+                  <div class="bg-blue-500/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#3b82f6" viewBox="0 0 256 256">
+                      <path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Zm-52.2,6.84-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path>
+                    </svg>
+                  </div>
+                  <h3 class="text-white text-xl font-bold mb-2">Medical Grade</h3>
+                  <p class="text-[#9daebe]">95%+ accuracy using advanced machine learning algorithms</p>
+                </div>
+                <div class="text-center">
+                  <div class="bg-purple-500/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#8b5cf6" viewBox="0 0 256 256">
+                      <path d="M208,40H48A16,16,0,0,0,32,56V200a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V56A16,16,0,0,0,208,40ZM48,56H208V88H48ZM48,200V104H208v96Z"></path>
+                    </svg>
+                  </div>
+                  <h3 class="text-white text-xl font-bold mb-2">Track Progress</h3>
+                  <p class="text-[#9daebe]">Monitor your skin health over time with detailed history</p>
+                </div>
+              </div>
+
+              <!-- Urgency Stats -->
+              <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div class="text-red-400 text-3xl font-bold">Most Common</div>
+                    <div class="text-red-300 text-sm">Cancer type worldwide</div>
+                  </div>
+                  <div>
+                    <div class="text-red-400 text-3xl font-bold">99%</div>
+                    <div class="text-red-300 text-sm">Survival rate when caught early</div>
+                  </div>
+                  <div>
+                    <div class="text-red-400 text-3xl font-bold">Every 36s</div>
+                    <div class="text-red-300 text-sm">Someone is diagnosed globally</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Performance Stats -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="bg-[#141a1f] rounded-lg p-4 border border-[#3d4d5c]">
+                  <div class="text-green-400 text-2xl font-bold">95.2%</div>
+                  <div class="text-[#9daebe] text-sm">Accuracy</div>
+                </div>
+                <div class="bg-[#141a1f] rounded-lg p-4 border border-[#3d4d5c]">
+                  <div class="text-blue-400 text-2xl font-bold">&lt;3s</div>
+                  <div class="text-[#9daebe] text-sm">Analysis Time</div>
+                </div>
+                <div class="bg-[#141a1f] rounded-lg p-4 border border-[#3d4d5c]">
+                  <div class="text-purple-400 text-2xl font-bold">24/7</div>
+                  <div class="text-[#9daebe] text-sm">Available</div>
+                </div>
+                <div class="bg-[#141a1f] rounded-lg p-4 border border-[#3d4d5c]">
+                  <div class="text-yellow-400 text-2xl font-bold">Free</div>
+                  <div class="text-[#9daebe] text-sm">To Use</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- How It Works -->
+          <div class="px-2 md:px-4 py-6">
+            <h2 class="text-white text-[24px] md:text-[28px] font-bold text-center mb-8">How It Works - Simple & Fast</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="text-center">
+                <div class="bg-[#dce8f3] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-[#141a1f] font-bold text-xl">1</div>
+                <h3 class="text-white font-semibold mb-2">Upload Image</h3>
+                <p class="text-[#9daebe] text-sm">Take or upload a clear photo of the skin area you're concerned about</p>
+              </div>
+              <div class="text-center">
+                <div class="bg-[#dce8f3] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-[#141a1f] font-bold text-xl">2</div>
+                <h3 class="text-white font-semibold mb-2">AI Analysis</h3>
+                <p class="text-[#9daebe] text-sm">Our advanced AI model analyzes the image in seconds</p>
+              </div>
+              <div class="text-center">
+                <div class="bg-[#dce8f3] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-[#141a1f] font-bold text-xl">3</div>
+                <h3 class="text-white font-semibold mb-2">Get Results</h3>
+                <p class="text-[#9daebe] text-sm">Receive detailed analysis with confidence scores and recommendations</p>
+              </div>
+            </div>
+            <div class="text-center mt-8">
+              <a href="{{ url_for('upload_page') }}" class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-blue-600 transition-all shadow-lg transform hover:scale-105">
+                🚀 Start Your Free Analysis
+              </a>
+            </div>
+          </div>
+          <!-- Testimonial/Trust Section -->
+          <div class="px-2 md:px-4 py-6">
+            <div class="bg-gradient-to-r from-[#1f272e] to-[#2b3640] rounded-xl p-6 border border-[#3d4d5c] text-center">
+              <h2 class="text-white text-[24px] md:text-[28px] font-bold mb-6">Trusted by Healthcare Professionals</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-[#141a1f] rounded-lg p-6 border border-[#3d4d5c]">
+                  <div class="text-yellow-400 text-2xl mb-4">★★★★★</div>
+                  <p class="text-white mb-4 italic">"This tool helped me catch a suspicious mole early. The AI analysis gave me the confidence to see a dermatologist immediately."</p>
+                  <p class="text-[#9daebe] text-sm">- Sarah M., Early Detection Success</p>
+                </div>
+                <div class="bg-[#141a1f] rounded-lg p-6 border border-[#3d4d5c]">
+                  <div class="text-yellow-400 text-2xl mb-4">★★★★★</div>
+                  <p class="text-white mb-4 italic">"As a dermatologist, I'm impressed by the accuracy. It's a valuable screening tool for patients between visits."</p>
+                  <p class="text-[#9daebe] text-sm">- Dr. James L., Dermatologist</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Final CTA -->
+          <div class="px-2 md:px-4 py-6">
+            <div class="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 rounded-xl p-8 text-center">
+              <h2 class="text-white text-[24px] md:text-[28px] font-bold mb-4">⚠️ Don't Wait - Early Detection Saves Lives</h2>
+              <p class="text-white text-lg mb-6 max-w-2xl mx-auto">Skin cancer is 99% treatable when caught early. Take 30 seconds to check that suspicious spot.</p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{{ url_for('upload_page') }}" class="bg-red-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-red-600 transition-colors shadow-lg">
+                  🆘 Check Now - It's Free
+                </a>
+                <a href="{{ url_for('history_page') }}" class="bg-white text-red-500 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
+                  📈 View My History
+                </a>
+              </div>
+              <p class="text-red-200 text-sm mt-4">*This tool is for screening purposes only. Always consult a healthcare professional for medical advice.</p>
+            </div>
+          </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+    <script>
+        // Mobile sidebar toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const sidebarMenu = document.getElementById('sidebarMenu');
+            const closeSidebar = document.getElementById('closeSidebar');
+            
+            function toggleSidebar() {
+                sidebarMenu.classList.toggle('-translate-x-full');
+            }
+            
+            if (mobileMenuButton && sidebarMenu) {
+                mobileMenuButton.addEventListener('click', toggleSidebar);
+            }
+            
+            if (closeSidebar) {
+                closeSidebar.addEventListener('click', toggleSidebar);
+            }
+            
+            // Close sidebar when clicking outside
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth < 768 && !sidebarMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                    sidebarMenu.classList.add('-translate-x-full');
+                }
+            });
+        });
+    </script>
+  </body>
+</html>

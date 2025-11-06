@@ -1,0 +1,542 @@
+/* app.css - Custom styles for a fun, interactive experience */
+
+/* Theme variables */
+:root {
+  --primary-brown: #9A6735;
+  --primary-brown-hover: #8B5A2F;
+  --secondary-mint: #94DEA5;
+  --secondary-mint-hover: #7FC794;
+  --accent-yellow: #FFFF66;
+  --accent-yellow-hover: #FFFF4D;
+}
+
+/* Dark theme (default) */
+[data-theme="dark"] {
+  --bg-primary: #141a1f;
+  --bg-secondary: #1f272e;
+  --bg-tertiary: #2b3640;
+  --text-primary: #ffffff;
+  --text-secondary: #dce8f3;
+  --text-muted: #9daebe;
+  --border-color: #3d4d5c;
+  --gradient-bg: linear-gradient(135deg, #E8F5E8, #F0FFF0, #E0FFE0);
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-muted: #6c757d;
+  --border-color: #dee2e6;
+  --gradient-bg: linear-gradient(135deg, #ffffff, #f8f9fa, #e9ecef);
+}
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Noto Sans', sans-serif;
+    transition: all 0.3s ease;
+    background: var(--gradient-bg);
+    color: var(--text-primary);
+}
+
+/* Light mode overrides for Tailwind classes */
+body.light-mode .bg-\[\#141a1f\] {
+    background-color: var(--bg-primary) !important;
+}
+
+body.light-mode .bg-\[\#1f272e\] {
+    background-color: var(--bg-secondary) !important;
+}
+
+body.light-mode .bg-\[\#2b3640\] {
+    background-color: var(--bg-tertiary) !important;
+}
+
+body.light-mode .border-\[\#3d4d5c\] {
+    border-color: var(--border-color) !important;
+}
+
+body.light-mode .text-white {
+    color: var(--text-primary) !important;
+}
+
+body.light-mode .text-\[\#9daebe\] {
+    color: var(--text-muted) !important;
+}
+
+body.light-mode .text-\[\#dce8f3\] {
+    color: var(--text-secondary) !important;
+}
+
+/* Additional light mode overrides */
+body.light-mode .border-\[\#2b3640\] {
+    border-color: var(--border-color) !important;
+}
+
+body.light-mode .hover\:bg-\[\#2b3640\]:hover {
+    background-color: var(--bg-tertiary) !important;
+}
+
+/* Gradient overrides for light mode */
+body.light-mode .bg-gradient-to-r {
+    background: var(--bg-secondary) !important;
+}
+
+body.light-mode .from-\[\#1f272e\] {
+    background: var(--bg-secondary) !important;
+}
+
+body.light-mode .to-\[\#2b3640\] {
+    background: var(--bg-tertiary) !important;
+}
+
+/* Button and form overrides */
+body.light-mode .bg-\[\#dce8f3\] {
+    background-color: #007bff !important;
+    color: white !important;
+}
+
+body.light-mode .text-\[\#141a1f\] {
+    color: white !important;
+}
+
+body.light-mode .hover\:bg-\[\#b8d4e8\]:hover {
+    background-color: #0056b3 !important;
+}
+
+/* Input field overrides */
+body.light-mode input,
+body.light-mode textarea {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+body.light-mode input:focus,
+body.light-mode textarea:focus {
+    border-color: #007bff !important;
+}
+
+/* Toggle switch overrides */
+body.light-mode .peer-checked\:bg-\[\#dce8f3\] {
+    background-color: #007bff !important;
+}
+
+/* Red elements for danger zone */
+body.light-mode .bg-red-600 {
+    background-color: #dc3545 !important;
+}
+
+body.light-mode .hover\:bg-red-700:hover {
+    background-color: #c82333 !important;
+}
+
+body.light-mode .bg-red-500\/20 {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+}
+
+body.light-mode .text-red-300 {
+    color: #dc3545 !important;
+}
+
+body.light-mode .border-red-500\/30 {
+    border-color: rgba(220, 53, 69, 0.3) !important;
+}
+
+body.light-mode .hover\:bg-red-500\/30:hover {
+    background-color: rgba(220, 53, 69, 0.2) !important;
+}
+
+/* Form elements */
+.form-input {
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, #9A6735 0%, #94DEA5 100%);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(154, 103, 53, 0.3);
+}
+
+/* Cards */
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .card {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation */
+.nav-link {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #9A6735 0%, #94DEA5 100%);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Tables */
+.table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.light-mode th,
+body.light-mode td {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+th {
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.light-mode th {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Status badges */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.benign {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.status-badge.malignant {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.status-badge.processing {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+/* Upload area */
+.upload-area {
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    border-color: #9A6735;
+    background: rgba(154, 103, 53, 0.05);
+}
+
+.upload-area.dragover {
+    border-color: #9A6735;
+    background: rgba(154, 103, 53, 0.1);
+    transform: scale(1.02);
+}
+
+body.light-mode .upload-area {
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+body.light-mode .upload-area:hover {
+    border-color: #9A6735;
+    background: rgba(154, 103, 53, 0.05);
+}
+
+/* Image preview */
+.image-preview {
+    position: relative;
+    display: inline-block;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.image-preview img {
+    max-width: 300px;
+    height: auto;
+    display: block;
+}
+
+.remove-image {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.remove-image:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+
+/* Loading animation */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #9A6735;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+}
+
+.toast.success {
+    background: linear-gradient(135deg, #94DEA5 0%, #9A6735 100%);
+}
+
+.toast.error {
+    background: linear-gradient(135deg, #FFFF66 0%, #9A6735 100%);
+    color: #9A6735;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .card {
+        padding: 16px;
+    }
+    
+    .upload-area {
+        padding: 20px;
+    }
+    
+    .image-preview img {
+        max-width: 100%;
+    }
+    
+    .table-container {
+        font-size: 14px;
+    }
+    
+    th, td {
+        padding: 12px 8px;
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+body.light-mode ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+body.light-mode ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid #9A6735;
+    outline-offset: 2px;
+}
+
+/* Animation utilities */
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Hover effects */
+.hover-lift {
+    transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+    background: linear-gradient(135deg, #9A6735 0%, #94DEA5 100%);
+}
+
+.gradient-bg-secondary {
+    background: linear-gradient(135deg, #FFFF66 0%, #94DEA5 100%);
+}
+
+/* Text gradients */
+.text-gradient {
+    background: linear-gradient(135deg, #9A6735 0%, #94DEA5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Fun floating animation for headings */
+.section-title {
+  animation: floatTitle 2.5s infinite alternate ease-in-out;
+}
+@keyframes floatTitle {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background: var(--primary-brown);
+  color: white;
+  transform: scale(1.05);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+} 
